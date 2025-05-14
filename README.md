@@ -1,4 +1,4 @@
 How to run the project
 
-1) javac Compiler.java
-2) java Compiler forth_compiler_test_cases.fs
+1) go build Compiler.go
+2) ./Compiler forth_compiler_test_cases.fs
