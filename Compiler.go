@@ -315,7 +315,7 @@ func runCommand(name string, args ...string) error {
 
 func main() {
         if len(os.Args) < 2 {
-                fmt.Printf("Usage: %s <input.fs>\n", os.Args[0])
+                fmt.Printf("Usage: %s <tests.fs>\n", os.Args[0])
                 os.Exit(1)
         }
         compiler := NewCompiler()
@@ -333,19 +333,19 @@ func main() {
         fmt.Printf("Compiled %s to %s\n", inputFile, outputFile)
 
         fmt.Println("Assembling...")
-        if err := runCommand("nasm", "-felf32", outputFile, "-o", "forth.o"); err != nil {
+        if err := runCommand("nasm", "-felf32", outputFile, "-o", "Compiler.o"); err != nil {
                 fmt.Fprintf(os.Stderr, "Error assembling: %v\n", err)
                 os.Exit(1)
         }
 
         fmt.Println("Linking...")
-        if err := runCommand("gcc", "-m32", "forth.o", "-o", "forth", "-no-pie"); err != nil {
+        if err := runCommand("gcc", "-m32", "Compiler.o", "-o", "Compiler", "-no-pie"); err != nil {
                 fmt.Fprintf(os.Stderr, "Error linking: %v\n", err)
                 os.Exit(1)
         }
 
         fmt.Println("Build complete. Running the program...\n")
-        if err := runCommand("./forth"); err != nil {
+        if err := runCommand("./Compiler"); err != nil {
                 fmt.Fprintf(os.Stderr, "Error running program: %v\n", err)
                 os.Exit(1)
         }
